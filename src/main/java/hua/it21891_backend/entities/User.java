@@ -1,5 +1,8 @@
 package hua.it21891_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -16,6 +19,7 @@ public class User {
     private String userName;
 
     @Column( unique = true, nullable = false )
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column( unique = true, nullable = false )
@@ -33,10 +37,12 @@ public class User {
 
     // One-to-Many: Events created by the user (as an organizer)
     @OneToMany(mappedBy = "organizer")
+//    @JsonManagedReference("user-organizedEvents")
     private Set<Event> organizedEvents = new HashSet<>();
 
     // Many-to-Many: Events the user volunteers for
     @ManyToMany(mappedBy = "volunteers")
+//    @JsonManagedReference("user-volunteeredEvents")
     private Set<Event> volunteeredEvents = new HashSet<>();
 
     public User() {}

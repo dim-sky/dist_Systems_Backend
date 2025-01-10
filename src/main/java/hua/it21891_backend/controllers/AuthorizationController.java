@@ -21,9 +21,11 @@ public class AuthorizationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
         String token = authService.register(user);
-        return ResponseEntity.ok(token);
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")

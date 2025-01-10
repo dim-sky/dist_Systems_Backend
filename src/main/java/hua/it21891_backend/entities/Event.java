@@ -1,5 +1,6 @@
 package hua.it21891_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -33,6 +34,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "organizer_id", nullable = false) // Foreign key in Event table
+    @JsonBackReference("user-organizedEvents")
     private User organizer;
 
     // Many-to-Many: Volunteers participating in the event
@@ -42,6 +44,7 @@ public class Event {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "volunteer_id")
     )
+    @JsonBackReference("user-volunteeredEvents")
     private Set<User> volunteers = new HashSet<>();
 
     public Event() {}

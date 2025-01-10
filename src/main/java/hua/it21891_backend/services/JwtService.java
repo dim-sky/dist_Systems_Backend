@@ -29,10 +29,12 @@ public class JwtService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         String role = user.getRole().getRoleName(); // Assuming 'getRole' returns the user's role
+        boolean isApproved = user.isAuthenticated();
 
         return Jwts.builder()
                 .setSubject(username)
                 .claim("role", role)
+//                .claim("customAuthentication", isApproved)
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
