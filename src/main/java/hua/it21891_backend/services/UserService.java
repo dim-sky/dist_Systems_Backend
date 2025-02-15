@@ -92,7 +92,6 @@ public class UserService implements UserDetailsService {
     public void createUser(String userName, String password, String email, String name, String roleName) {
         // Check if the role exists
         UserRole role = userRoleRepository.findByRoleName(roleName);
-
         // Create and save the user
         User user = new User();
         user.setUserName(userName);
@@ -100,7 +99,7 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(password)); // Always encode passwords
         user.setName(name);
         user.setRole(role);
-        user.setAuthenticated(false); // Default to unverified
+        user.setAuthenticated(true);
 
         userRepository.save(user);
     }
@@ -114,14 +113,27 @@ public class UserService implements UserDetailsService {
         return user;
 
     }
-
+    
 //    @PostConstruct
 //    @Transactional
 //    public void postConstruct() {
-//        createUser("User_1","password_1", "email_1","name_1","ROLE_VOLUNTEER");
-//        createUser("User_2","password_2", "email_2","name_2","ROLE_ORGANIZATION");
-//        createUser("User_3","password_3", "email_3","name_3","ROLE_ADMIN");
-//
+//        createUser("master10","123456789", "master10@gmail.com","name_311","ROLE_ADMIN");
+
+//    }
+
+
+//    @PostConstruct
+//    @Transactional
+//    public void init() {
+//         System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
+//        UserRole role = userRoleRepository.findByRoleName("ROLE_ADMIN");
+//        System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
+//        User admin = new User("master_admin",passwordEncoder.encode("123456789"),"master101@gmail.com", true, "temp",role);
+//         System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
+//        this.userRepository.save(admin);
+//        System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
+
+      
 //    }
 
 
