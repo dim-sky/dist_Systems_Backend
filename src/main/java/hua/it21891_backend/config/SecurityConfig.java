@@ -46,32 +46,27 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // ADD THIS LINE
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow preflight
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
-
+    
         return http.build();
     }
-
+    
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         
-        // CHANGE THIS - Use specific origins instead of "*"
-        config.setAllowedOrigins(List.of(
-            "http://localhost", 
-            "http://localhost:80",
-            "http://localhost:4200",  // Just in case
-            "http://angular-app"
-        ));
-        
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
+        // ALLOW EVERYTHING - for development only
+        config.setAllowedOriginPatterns(List.of("*")); // Allows all origins
+        config.setAllowedMethods(List.of("*")); // Allows all HTTP methods
+        config.setAllowedHeaders(List.of("*")); // Allows all headers
+        config.setAllowCredentials(false); // MUST be false when using "*"
+        config.setExposedHeaders(List.of("*")); // Expose all headers
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
