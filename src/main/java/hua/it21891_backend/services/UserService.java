@@ -117,8 +117,11 @@ public class UserService implements UserDetailsService {
    @PostConstruct
    @Transactional
    public void postConstruct() {
-       createUser("admin","dddddddd", "master10@gmail.com","name_311","ROLE_ADMIN");
-
+    try {
+        createUser("admin", "dddddddd", "master10@gmail.com", "name_311", "ROLE_ADMIN");
+    } catch (Exception e) {
+        System.out.println("Admin user already exist: " + e.getMessage());
+    }
    }
 
 
