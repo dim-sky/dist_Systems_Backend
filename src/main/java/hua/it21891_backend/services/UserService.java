@@ -114,12 +114,12 @@ public class UserService implements UserDetailsService {
 
     }
     
-    @PostConstruct
-    @Transactional
-    public void postConstruct() {
-        createUser("admin","123456789", "master10@gmail.com","name_311","ROLE_ADMIN");
-
-    }
+//    @PostConstruct
+//    @Transactional
+//    public void postConstruct() {
+//        createUser("admin","123456789", "master10@gmail.com","name_311","ROLE_ADMIN");
+//
+//    }
 
 
 //    @PostConstruct
