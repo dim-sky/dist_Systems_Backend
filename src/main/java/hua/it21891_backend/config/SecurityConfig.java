@@ -62,7 +62,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         
         // ALLOW EVERYTHING - for development only
-        config.setAllowedOriginPatterns(List.of("http:/localhost:9090")); // Allows all origins
+        config.setAllowedOriginPatterns(List.of("*")); // Allows all origins
         config.setAllowedMethods(List.of("*")); // Allows all HTTP methods
         config.setAllowedHeaders(List.of("*")); // Allows all headers
         config.setAllowCredentials(false); // MUST be false when using "*"
