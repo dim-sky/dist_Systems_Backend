@@ -115,6 +115,22 @@ public class UserService implements UserDetailsService {
     }
     
     @PostConstruct
+    @Transactional
+    public void init() {
+        try {
+            UserRole volunteer = new UserRole(1, "ROLE_VOLUNTEER");
+            UserRole organization = new UserRole(2, "ROLE_ORGANIZATION");
+            UserRole admin = new UserRole(3, "ROLE_ADMIN");
+
+            userRoleRepository.save(volunteer);
+            userRoleRepository.save(organization);
+            userRoleRepository.save(admin);
+        } catch (Exception e) {
+            System.out.println("UserRoles may already exist in database: " + e.getMessage());
+        }
+   }
+
+    @PostConstruct
        @Transactional
        public void postConstruct() {
         try {
