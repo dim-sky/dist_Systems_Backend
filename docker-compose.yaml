@@ -42,7 +42,7 @@ services:
   frontend:
     #image: front
     build:
-      context: https://github.com/dim-sky/AngularApp.git#docker
+      context: https://github.com/dim-sky/AngularApp.git#devops
       dockerfile: Dockerfile
       #context: git@github.com:gkoulis/ds-lab-2023-frontend.git#env
       #dockerfile: node.Dockerfile
